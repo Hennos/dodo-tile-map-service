@@ -1,19 +1,24 @@
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var fileupload = require("express-fileupload");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 
-var indexRouter = require("./routes/index");
+const indexRouter = require("./routes/index");
 
-var app = express();
+const app = express();
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(fileupload());
-app.use(express.static(path.join(__dirname, "storage")));
+
+app.use(express.static(path.join(__dirname, "public")));
+
+const storagePath = path.join(__dirname, "storage");
+app.use((req, res, next) => {
+  req.storagePath = storagePath;
+  next();
+});
 
 app.use("/", indexRouter);
 
