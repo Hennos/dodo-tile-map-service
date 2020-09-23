@@ -13,14 +13,22 @@ router.get("/mapConfig", function (req, res) {
 });
 
 router.post("/mapConfig", upload.none(), function (req, res) {
+  const { storagePath } = req;
+
   const validate = ({ width, height, scale }) =>
     Number.parseInt(width) &&
     Number.parseInt(height) &&
     Number.parseFloat(scale);
 
   if (validate(req.body)) {
+    const storageExist =
+      fs.existsSync(storagePath) && fs.lstatSync(storagePath).isDirectory();
+    if (!storageExist) {
+      fs.mkdirSync(storagePath);
+    }
+
     fs.writeFile(
-      path.join(req.storagePath, "mapConfig.json"),
+      path.join(storagePath, "mapConfig.json"),
       Buffer.from(
         JSON.stringify({
           width: Number.parseInt(req.body.width),
@@ -44,8 +52,17 @@ router.get("/mapImage", function (req, res) {
 });
 
 router.post("/mapImage", upload.single("map"), async function (req, res, next) {
+  const { storagePath } = req;
+
+  const storageExist =
+    fs.existsSync(storagePath) && fs.lstatSync(storagePath).isDirectory();
+  if (!storageExist) {
+    fs.mkdirSync(storagePath);
+  }
+
   const image = await jimp.read(req.file.buffer);
-  await image.write("./storage/map.jpg");
+  await image.write(path.join(storagePath, "map.jpg"));
+
   res.status(200).send("Изображение карты обновлено");
 });
 
