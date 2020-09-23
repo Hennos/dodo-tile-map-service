@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Конфигурация карты</title>
+
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+  <body>
+    <form id="load_map_form" class="data_form">
+      <p class="form_row form_title">Файл карты</p>
+      <p class="form_row"><input type="file" name="map" /></p>
+      <p class="form_row"><input type="submit" /></p>
+    </form>
+    <form id="load_map_config_form" class="data_form">
+      <p class="form_row form_title">Параметры карты</p>
+      <p class="form_row">
+        <input placeholder="Высота" type="text" name="height" />
+      </p>
+      <p class="form_row">
+        <input placeholder="Ширина" type="text" name="width" />
+      </p>
+      <p class="form_row">
+        <input placeholder="Масштаб" type="text" name="scale" />
+      </p>
+      <p class="form_row"><input type="submit" /></p>
+    </form>
+
+    <script src="index.js"></script>
+  </body>
+</html>

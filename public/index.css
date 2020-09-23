@@ -1,0 +1,22 @@
+.data_form {
+  width: 300px;
+  padding: 8px;
+  margin-top: 8px;
+  border-radius: 4px;
+  background-color: white;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.data_form .form_row {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.data_form:last_child {
+  margin-bottom: 0;
+}
+
+.form_title {
+  font-weight: bold;
+}
